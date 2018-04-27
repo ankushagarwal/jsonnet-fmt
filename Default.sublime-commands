@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Jsonnet Fmt: Format File",
+        "command": "jsonnet_fmt"
+    }
+]

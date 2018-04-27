@@ -1,0 +1,38 @@
+[
+    {
+        "mnemonic": "n",
+        "caption": "Preferences",
+        "id": "preferences",
+        "children": [
+            {
+                "mnemonic": "P",
+                "caption": "Package Settings",
+                "id": "package-settings",
+                "children": [
+                    {
+                        "caption": "JsonnetFmt",
+                        "children": [
+                            {
+                                "caption": "Settings – Default",
+                                "args": {
+                                    "file": "${packages}/jsonnet-fmt/JsonnetFmt.sublime-settings"
+                                },
+                                "command": "open_file"
+                            },
+                            {
+                                "caption": "Settings – User",
+                                "args": {
+                                    "file": "${packages}/User/JsonnetFmt.sublime-settings"
+                                },
+                                "command": "open_file"
+                            },
+                            {
+                                "caption": "-"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

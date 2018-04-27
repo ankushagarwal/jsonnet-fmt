@@ -1,0 +1,8 @@
+[
+    {
+        "keys": [
+            "ctrl+alt+0"
+        ],
+        "command": "jsonnet_fmt"
+    }
+]
