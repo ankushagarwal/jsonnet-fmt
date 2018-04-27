@@ -17,6 +17,12 @@ sudo chmod +x /usr/local/bin/jsonnet
 Run the command `git clone https://github.com/ankushagarwal/jsonnet-fmt` from within the Sublime Text `Packages` directory.
 The location of your Sublime Text Packages directory can be found by clicking the menu: `Preferences` > `Browse Packages...`.
 
+## Use Formatter
+
+1. Keyboard shortcut: `ctrl+alt+0`
+
+2. Using Command Palette : `Jsonnet Fmt: Format File`
+
 ## Customize
 
 By default the jsonnet formatter runs with the flags `["--string-style", "d", "--comment-style", "s", "--indent", "2"]`.
