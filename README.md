@@ -27,8 +27,8 @@ sudo chmod +x /usr/local/bin/jsonnet
 
 ## Customize
 
-By default the jsonnet formatter runs with the flags `["--string-style", "d", "--comment-style", "s", "--indent", "2"]`.
+1. By default the jsonnet formatter runs with the flags `["--string-style", "d", "--comment-style", "s", "--indent", "2"]`.
 
-You can update this by editing the sublime settings file Preferences -> Package Settings -> JsonnetFmt -> Settings User / Settings Default
+2. By default `jsonnet_fmt_run_on_save` is set to false. Set it to true if you want the formatter to run automatically on saving a jsonnet / libsonnet file.
 
-`Settings Default` contains the default flags. `Settings User` can be used to override the default flags.
+You can update these settings by editing the sublime settings file Preferences -> Package Settings -> JsonnetFmt -> Settings User / Settings Default. `Settings Default` contains the default flags. `Settings User` can be used to override the default flags.

@@ -1,13 +1,15 @@
+import tempfile
+from subprocess import call
+
 import sublime
 import sublime_plugin
-from subprocess import call
-import tempfile
 
 
 def get_setting(key, default_value=None):
   settings = sublime.active_window().active_view().settings()
   settings = sublime.load_settings("JsonnetFmt.sublime-settings")
   return settings.get(key, default_value)
+
 
 class JsonnetFmtCommand(sublime_plugin.TextCommand):
   view = None
@@ -40,13 +42,12 @@ class JsonnetFmtCommand(sublime_plugin.TextCommand):
     return pos
 
   def get_settings(self):
-    profile = sublime.active_window().active_view().settings().get('jsonnet_fmt')
+    profile = sublime.active_window().active_view().settings().get(
+      'jsonnet_fmt')
     return profile or {}
 
   def run(self, edit):
     this_view = self.get_view()
-    current_positions = self.get_positions()
-
     this_contents = self.get_buffer_contents(this_view)
 
     new_contents = this_contents
@@ -54,19 +55,28 @@ class JsonnetFmtCommand(sublime_plugin.TextCommand):
       temp.write(this_contents)
       temp.flush()
       try:
-        flags = get_setting("jsonnet_fmt_flags", ["--string-style", "d", "--comment-style", "s", "--indent", "2"])
+        flags = get_setting(
+          "jsonnet_fmt_flags",
+          ["--string-style", "d", "--comment-style", "s", "--indent", "2"])
         retcode = call(["jsonnet", "fmt", temp.name, "-i"] + flags)
         if retcode > 0:
-          sublime.error_message("jsonnet fmt failed. Make sure your jsonnet is valid")
+          sublime.error_message(
+            "jsonnet fmt failed. Make sure your jsonnet is valid")
           return
         with open(temp.name) as f:
           new_contents = f.read()
       except Exception as e:
-        sublime.error_message("Make sure that jsonnet binary is installed and is executable")
+        sublime.error_message(
+          "Make sure that jsonnet binary is installed and is executable")
+    if new_contents != this_contents:
+      this_view.replace(edit, self.get_region(this_view), new_contents)
 
-    this_view.replace(edit, self.get_region(this_view), new_contents)
 
-    # Our sel has moved now..
-    remove_sel = this_view.sel()[0]
-    this_view.sel().subtract(remove_sel)
-    self.set_cursor_back(current_positions)
+class EventListener(sublime_plugin.EventListener):
+
+  def on_post_save_async(self, view):  # pylint: disable=no-self-use
+    file_name = view.file_name()
+    if file_name and (file_name.endswith(".jsonnet") or
+                      file_name.endswith(".libsonnet")) and get_setting(
+                        'jsonnet_fmt_run_on_save', False):
+      view.run_command('jsonnet_fmt')

@@ -1,3 +1,4 @@
 {
-	"jsonnet_fmt_flags": ["--string-style", "d", "--comment-style", "s", "--indent", "2"]
+  "jsonnet_fmt_flags": ["--string-style", "d", "--comment-style", "s", "--indent", "2"],
+  "jsonnet_fmt_run_on_save": false
 }
