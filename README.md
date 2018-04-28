@@ -23,7 +23,7 @@ sudo chmod +x /usr/local/bin/jsonnet
 
 ## Use Formatter
 
-Open a jsonnet / libsonnet file
+Open a jsonnet / libsonnet file. There are two ways to format the file:
 
 1. Keyboard shortcut: `ctrl+alt+0` (For OSX and Linux)
 
