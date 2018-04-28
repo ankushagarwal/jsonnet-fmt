@@ -71,10 +71,9 @@ class JsonnetFmtCommand(sublime_plugin.TextCommand):
     if new_contents != this_contents:
       this_view.replace(edit, self.get_region(this_view), new_contents)
 
-
 class EventListener(sublime_plugin.EventListener):
 
-  def on_post_save_async(self, view):  # pylint: disable=no-self-use
+  def on_pre_save(self, view):  # pylint: disable=no-self-use
     file_name = view.file_name()
     if file_name and (file_name.endswith(".jsonnet") or
                       file_name.endswith(".libsonnet")) and get_setting(
