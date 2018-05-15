@@ -6,7 +6,6 @@ import sublime_plugin
 
 
 def get_setting(key, default_value=None):
-  settings = sublime.active_window().active_view().settings()
   settings = sublime.load_settings("JsonnetFmt.sublime-settings")
   return settings.get(key, default_value)
 
@@ -20,24 +19,14 @@ class JsonnetFmtCommand(sublime_plugin.TextCommand):
   def get_buffer_contents(self, view):
     return view.substr(self.get_region(view))
 
-  def set_view(self):
-    self.view = sublime.active_window().active_view()
-    return self.view
-
-  def get_view(self):
-    if self.view is None:
-      return self.set_view()
-
-    return self.view
-
   def set_cursor_back(self, begin_positions):
-    this_view = self.get_view()
+    this_view = self.view
     for pos in begin_positions:
       this_view.sel().add(pos)
 
   def get_positions(self):
     pos = []
-    for region in self.get_view().sel():
+    for region in self.view.sel():
       pos.append(region)
     return pos
 
@@ -47,7 +36,7 @@ class JsonnetFmtCommand(sublime_plugin.TextCommand):
     return profile or {}
 
   def run(self, edit):
-    this_view = self.get_view()
+    this_view = self.view
     this_contents = self.get_buffer_contents(this_view)
 
     new_contents = this_contents
